@@ -1,0 +1,67 @@
+============================================================================================FOR APRIORI ALGORITHM=================================================================================================================
+
+
+
+
+
+This code is an implementation of the Apriori algorithm, which is used for frequent itemset mining and association rule generation in data mining. The Apriori algorithm identifies frequent itemsets in a dataset and generates association rules based on those itemsets.
+Here's a breakdown of the code:
+1.	Importing Libraries:
+•	The code begins by importing various Python libraries, including sys, itertools, collections, optparse, and Smart_Shopper_Lib_Tester (imported as SSL). These libraries are used for various purposes throughout the code.
+2.	subsets Function:
+•	subsets(arr) is a function that generates non-empty subsets of an input iterable arr. It uses the itertools.combinations function to generate combinations of different lengths.
+3.	returnItemsWithMinSupport Function:
+•	returnItemsWithMinSupport calculates the support for items in an itemset and returns a subset of the itemset whose elements satisfy the minimum support threshold.
+4.	joinSet Function:
+•	joinSet joins a set with itself and returns n-element itemsets.
+5.	getItemSetTransactionList Function:
+•	getItemSetTransactionList reads a data iterator and returns a list of transactions and a set of unique items in those transactions. It is used to initialize the item set and transaction list for the Apriori algorithm.
+6.	runApriori Function:
+•	runApriori is the main function implementing the Apriori algorithm. It takes a data iterator, minimum support, and minimum confidence as input.
+•	It iteratively finds frequent itemsets of increasing length and stores them in largeSet.
+•	It also generates association rules based on the frequent itemsets and stores them in assocRules.
+7.	getSupport Function:
+•	getSupport calculates the support of a given item.
+8.	printResults Function:
+•	printResults is a utility function to print the generated itemsets sorted by support and the confidence rules sorted by confidence.
+9.	addToDb Function:
+•	addToDb adds the generated association rules to a database using the Smart_Shopper_Lib_Tester library. It establishes a connection, adds rules to the database, and commits the changes.
+10.	dataFromFile Function:
+•	dataFromFile reads data from a file and yields it as a generator.
+11.	Apriori Function:
+•	Apriori is the main function that sets up parameters like the input file name, minimum support, and minimum confidence. It then runs the Apriori algorithm, prints the results, and adds the rules to the database.
+12.	if __name__ == '__main__':
+•	This block ensures that the code is executed only when it is run as a standalone script and not when it is imported as a module.
+In summary, this code defines and executes the Apriori algorithm to find frequent itemsets and association rules in a dataset, and it uses an external library (Smart_Shopper_Lib_Tester) to store the generated rules in a database.
+
+
+
+
+
+========================================================================================FOR ARDUINO BASED RFID TAGS===========================================================================================================
+
+
+This code appears to be a Python script for a Smart Shopper application that interacts with an Arduino device to read RFID tags. It processes the RFID data, updates a database, and performs various actions like adding/removing items from a cart, suggesting items, and running an Apriori algorithm to make recommendations for the customer. Here's an explanation of the code:
+1.	Importing Libraries:
+•	It starts by importing the serial library for serial communication with the Arduino, as well as two external modules, Smart_Shopper_Lib_Tester (imported as SSL) and Apriori_for_Smart_Shopper (imported as AS).
+2.	Serial Communication Setup:
+•	Two serial objects, arduino_milk and arduino_grape, are created to communicate with the Arduino devices connected to the COM4 and COM5 ports, respectively.
+3.	readRFID Function:
+•	This function continuously reads RFID data from the Arduino devices in a loop.
+•	Inside the loop:
+•	It checks if data is available from both Arduino devices.
+•	If data is available from either device (data_milk or data_grape), it identifies the detected item ('Milk' or 'Jam') and extracts the RFID tag ID.
+•	It attempts to establish a database connection using SSL.establish_conn() and tries to detect the customer's ID based on the RFID tag using SSL.detect_rfid_tag(rfid_id, cursor).
+•	It prints information about the detected RFID tag, the item, and the customer ID.
+•	It checks if the item is already in the customer's cart using SSL.check_item().
+•	If the item is not in the cart, it adds the item to the cart using SSL.add_item_to_cart() and checks for sufficient balance in the customer's wallet.
+•	If the item is already in the cart, it removes the item from the cart using SSL.remove_item_from_cart().
+•	After performing these actions, it commits the changes to the database.
+•	It calls the AS.Apriori() function to run the Apriori algorithm for generating recommendations.
+•	It suggests items to the customer using SSL.find_suggestion(item, cursor) and prints the suggestions.
+4.	Main Block:
+•	The script runs the readRFID() function when executed as the main program (if __name__ == '__main__':).
+
+
+
+
