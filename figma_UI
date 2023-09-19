@@ -1,3 +1,39 @@
 Link for the Figma page created for the project : 
 
 https://www.figma.com/proto/hdAYsdD6276ayrabeI7zh4/VALENTINO?type=design&node-id=75-31&t=0dNkRs58NaTifO0k-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=1%3A4
+
+Code using HTML :
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple AJAX Example</title>
+</head>
+<body>
+    <button onclick="sendRequest()">Send Request</button>
+    <div id="response"></div>
+
+    <script>
+        
+        function sendRequest() {
+            var dataToSend = {key: 'value'};  // Data to send to the backend
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/api', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    var response = JSON.parse(xhr.responseText);
+                    document.getElementById('response').innerHTML = response.message;
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            };
+
+            xhr.send(JSON.stringify(dataToSend));
+        }
+    </script>
+</body>
+</html>
