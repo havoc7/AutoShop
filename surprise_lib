@@ -1,0 +1,110 @@
+!pip install git+https://github.com/NicolasHug/surprise.git
+
+from surprise import Dataset, Reader
+from surprise.model_selection import train_test_split
+from surprise import KNNBasic
+from surprise import accuracy
+
+data = [
+    ('User1', 'Movie1', 4),
+    ('User1', 'Movie2', 3),
+    ('User1', 'Movie3', 5),
+    ('User2', 'Movie1', 3),
+    ('User2', 'Movie2', 4),
+    ('User2', 'Movie3', 2),
+]
+
+reader = Reader(rating_scale=(1, 5))
+dataset = Dataset.load_from_df(data, reader)
+
+trainset, testset = train_test_split(dataset, test_size=0.2)
+
+sim_options = {
+    'name': 'cosine',  
+    'user_based': True  
+}
+
+model = KNNBasic(sim_options=sim_options)
+model.fit(trainset)
+
+predictions = model.test(testset)
+
+rmse = accuracy.rmse(predictions)
+print(f'RMSE: {rmse:.2f}')
+
+user_id = 'User1'
+movies_already_rated = [rating[0] for rating in data if rating[0] == user_id]
+movies_to_recommend = [movie for movie in dataset.all_items() if movie not in movies_already_rated]
+
+top_n = 3  
+user_ratings = [(user_id, movie, 0) for movie in movies_to_recommend]  
+user_predictions = model.test(user_ratings)
+
+
+top_movies = sorted(user_predictions, key=lambda x: x.est, reverse=True)[:top_n]
+for movie in top_movies:
+    print(f'Recommended Movie: {movie[1]}, Estimated Rating: {movie[3]:.2f}')
+
+
+import numpy as np
+
+# Sample user-item ratings data (user, item, rating)
+data = [
+    ('User1', 'Movie1', 4),
+    ('User1', 'Movie2', 3),
+    ('User1', 'Movie3', 5),
+    ('User2', 'Movie1', 3),
+    ('User2', 'Movie2', 4),
+    ('User2', 'Movie3', 2),
+    # Add more data here...
+]
+
+# Create a dictionary to map users to their ratings
+user_ratings = {}
+for user, item, rating in data:
+    if user not in user_ratings:
+        user_ratings[user] = {}
+    user_ratings[user][item] = rating
+
+# Function to calculate the cosine similarity between two users
+def cosine_similarity(user1, user2):
+    common_items = set(user_ratings[user1]) & set(user_ratings[user2])
+    if not common_items:
+        return 0.0
+    
+    numerator = sum(user_ratings[user1][item] * user_ratings[user2][item] for item in common_items)
+    denominator1 = np.sqrt(sum(user_ratings[user1][item] ** 2 for item in common_items))
+    denominator2 = np.sqrt(sum(user_ratings[user2][item] ** 2 for item in common_items))
+    
+    return numerator / (denominator1 * denominator2)
+
+# Function to get recommendations for a user
+def get_recommendations(user):
+    print(f"Getting recommendations for {user}...")  # Debug statement
+    user_similarity_scores = [(other_user, cosine_similarity(user, other_user)) for other_user in user_ratings if other_user != user]
+    
+    # Sort users by similarity score in descending order
+    user_similarity_scores.sort(key=lambda x: x[1], reverse=True)
+    
+    # Find items that the user has not rated
+    unrated_items = set(item for item in user_ratings[user] if user_ratings[user][item] == 0)
+    
+    recommendations = []
+    for other_user, similarity_score in user_similarity_scores:
+        for item in unrated_items:
+            if item in user_ratings[other_user]:
+                recommendations.append((item, similarity_score))
+    
+    recommendations.sort(key=lambda x: x[1], reverse=True)
+    
+    return recommendations
+
+# Example: Get recommendations for 'User1'
+user_to_recommend = 'User1'
+recommendations = get_recommendations(user_to_recommend)
+
+print(f"Top recommendations for {user_to_recommend}:")
+for item, score in recommendations[:3]:
+    print(f"Item: {item}, Similarity Score: {score:.2f}")
+
+
