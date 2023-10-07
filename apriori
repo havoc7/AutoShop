@@ -1,4 +1,4 @@
-#this code hasn't been adjusted according to the datset at hand as of now. I'll make commits to it on a later date.
+#This code hasn't been adjusted according to the datset at hand as of now. I'll make commits to it on a later date.
 
 def generate_candidates(itemset, k):
     candidates = []
