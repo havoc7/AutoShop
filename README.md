@@ -1,6 +1,5 @@
 # InnoSprint
 Come along with us to participate in a fun filled hackathon that tackles online shopping in a new and creative way!!
-![GitHub Logo](https://github.com/username/repo/raw/main/path/to/image.jpg)
 
 # The problem we're solving:
 
@@ -12,8 +11,14 @@ The application of neural networks along with clustering algorithms make this mo
 
 Creating classes based on popular trends with the help of clustering algorithms.
 Recommending based on filtering and personal preferences.
+
+![image](https://github.com/havoc7/AutoShop/assets/89507387/475bfb92-9022-4592-a21c-151be80010a4)
+
 Locating the outfit with the help of RFID tracker on the tag of the clothing article. 
 Once exited through the detector, the RFID chips get tracked that will finalise the items in cart for the total bill.
+
+![image](https://github.com/havoc7/AutoShop/assets/89507387/419be5a2-ecea-4a0f-a245-8a421db1a29e)
+
 The exit won’t be permitted till you pay the bill online or cancel the cart.
 
 # Our solution is unique as:
