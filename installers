@@ -4,6 +4,7 @@ print(sys.executable)
 # source /Users/Sarthak/AppData/Local/Microsoft/WindowsApps/python.exe
 !pip install flask
 
+# Flask helps tremendously in frontend connectivity of the python model
 from flask import Flask
 
 app = Flask(__name__)
