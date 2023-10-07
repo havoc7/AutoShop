@@ -1,5 +1,6 @@
 # InnoSprint
 Come along with us to participate in a fun filled hackathon that tackles online shopping in a new and creative way!!
+![GitHub Logo](https://github.com/username/repo/raw/main/path/to/image.jpg)
 
 # The problem we're solving:
 
