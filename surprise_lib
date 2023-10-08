@@ -1,3 +1,4 @@
+#to intall the surprise package
 !pip install git+https://github.com/NicolasHug/surprise.git
 
 from surprise import Dataset, Reader
