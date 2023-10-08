@@ -102,3 +102,4 @@ def get_recommendations(user_id, top_n=5):
 user_id_to_recommend = 'User1'
 top_recommendations = get_recommendations(user_id_to_recommend, top_n=5)
 print(top_recommendations)
+#recommendations are made on the basis of current trends 
