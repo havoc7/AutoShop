@@ -1,5 +1,5 @@
 # InnoSprint
-Come along with us to participate in a fun filled hackathon that tackles online shopping in a new and creative way!!
+Come along with us to participate in a fun filled hackathon that tackles online shopping in a new and creative way!
 
 # The problem we're solving:
 
